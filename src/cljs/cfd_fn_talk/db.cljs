@@ -1,7 +1,7 @@
 (ns cfd-fn-talk.db)
 
 (def default-db
-  {:name       "cfd-(fn)-talk"
+  {:name       "cfd-λ-talk"
    :categories #{:lazy/immutable
                  :lisp
                  :multicore

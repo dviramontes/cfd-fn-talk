@@ -14,3 +14,11 @@ p {
   padding-right: 0;
   text-align: center;
 }
+.is-warning {
+  color: rebeccapurple !important;
+  border-bottom: 0.25em solid gray;
+}
+.purple {
+  color: white !important;
+  background: rebeccapurple !important;
+}

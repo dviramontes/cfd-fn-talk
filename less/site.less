@@ -1,5 +1,4 @@
-body {
-}
+@purple: rebeccapurple;
 
 section {
   padding: 40px 20px;
@@ -13,9 +12,19 @@ p {
 }
 
 .title {
-  color: rebeccapurple;
+  color: @purple;
   font-size: 6em;
   padding-left: 0;
   padding-right: 0;
   text-align: center;
+}
+
+.is-warning {
+  color: @purple !important;
+  border-bottom: 0.25em solid gray;
+}
+
+.purple {
+  color: white !important;
+  background: @purple !important;
 }
