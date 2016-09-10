@@ -5,13 +5,17 @@
             [cfd-fn-talk.config :refer [ref-for-path firebase-db-ref]]))
 
 (defn card-opts [title index]
-  (let [name (str (name title) "-" index)]
+  (let [name (str (name title) "-" index)
+        read-path (ref-for-path (str "jeopardy/" name))
+        _ (.on read-path "value"
+               (fn [snapshot]
+                 (let [snapshot->clj (-> snapshot .val (js->clj :keywordize-keys true))]
+                   (prn (assoc (or snapshot->clj {:taken false})
+                          :card name)))))]
     {:id       name
-     :on-click (fn [e]
-                 (let [path (ref-for-path (str "jeopardy/" name))]
-                   (.set path
-                         (clj->js {:taken false})))
-                 (prn (-> e .-target .-id)))}))
+     :on-click (fn [_]
+                 (let [write-path (ref-for-path (str "jeopardy/" name))]
+                   (.set write-path (clj->js {:taken false}))))}))
 
 (defn card-contents [title index amount]
   [:p.notification.is-warning.purple
