@@ -15,8 +15,3 @@
 
 (defonce firebase-db-ref
          (-> firebase-app .database .ref))
-
-(defn ref-for-path
-  "Returns a Firebase ref for the node at the given path string relative to firebase-db-ref."
-  [rel-path]
-  (.child firebase-db-ref rel-path))

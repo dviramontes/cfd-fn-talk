@@ -4,7 +4,8 @@
                  [reagent "0.6.0-rc"]
                  [binaryage/devtools "0.6.1"]
                  [re-frame "0.8.0"]
-                 [cljsjs/firebase "3.2.1-0"]]
+                 [cljsjs/firebase "3.2.1-0"]
+                 [cljsjs/jquery "2.2.2-0"]]
 
   :plugins [[lein-cljsbuild "1.1.3"]
             [lein-less "1.7.5"]]
@@ -26,8 +27,8 @@
    {:dependencies []
 
     :plugins      [[lein-figwheel "0.5.4-3"]
-                   [lein-doo "0.1.6"]]
-    }}
+                   [lein-doo "0.1.6"]]}}
+
 
   :cljsbuild
   {:builds
@@ -51,7 +52,4 @@
      :source-paths ["src/cljs" "test/cljs"]
      :compiler     {:output-to     "resources/public/js/compiled/test.js"
                     :main          cfd-fn-talk.runner
-                    :optimizations :none}}
-    ]}
-
-  )
+                    :optimizations :none}}]})

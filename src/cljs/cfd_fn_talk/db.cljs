@@ -1,7 +1,7 @@
 (ns cfd-fn-talk.db)
 
 (def default-db
-  {:name       "cfd-λ-talk"
+  {:name       "(λ jeopardy)"
    :categories #{:lazy/immutable
                  :lisp
                  :multicore
@@ -9,4 +9,5 @@
                  :people-in-computing
                  :limits
                  :elixir/erlang
-                 :messages>classes}})
+                 :messages-better-than-classes}
+   :game-state []})

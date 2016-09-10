@@ -1,7 +1,15 @@
 @purple: rebeccapurple;
 
+body { background-color: ghostwhite}
+
 section {
   padding: 40px 20px;
+}
+
+.column {
+  &:hover {
+    cursor: hand;
+  }
 }
 
 p {
@@ -12,16 +20,15 @@ p {
 }
 
 .title {
+  padding:0.25em;
   color: @purple;
   font-size: 6em;
-  padding-left: 0;
-  padding-right: 0;
   text-align: center;
 }
 
 .is-warning {
   color: @purple !important;
-  border-bottom: 0.25em solid gray;
+  border-bottom: 0.25em solid deepskyblue;
 }
 
 .purple {
