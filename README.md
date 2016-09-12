@@ -44,6 +44,5 @@ The above command assumes that you have [phantomjs](https://www.npmjs.com/packag
 To compile clojurescript to javascript:
 
 ```
-lein clean
-lein cljsbuild once min
+lein clean && lein cljsbuild once min
 ```
