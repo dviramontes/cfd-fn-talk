@@ -60,4 +60,13 @@
           [:h1.title @name]
           [:div.columns
            (for [c (:categories db/default-db)]
-             ^{:key c} [card c])]])})))
+             ^{:key c} [card c])]
+          [:button.btn.btn-lg.btn-danger
+           {:on-click (fn []
+                        (let [reset-ref (ref-for-path "jeopardy")]
+                          (.remove reset-ref (fn [e]
+                                               (if e
+                                                 (prn e)
+                                                 (prn "reset db success"))))))}
+
+           "reset board"]])})))
