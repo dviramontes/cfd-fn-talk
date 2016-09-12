@@ -24,9 +24,12 @@
                                          (or snapshot->clj {:taken false})
                                          :card name)]))))]
     {:id       name
-     :on-click (fn [_]
-                 (let [write-ref (ref-for-path (str "jeopardy/" name))]
-                   (.set write-ref (clj->js {:taken true}))))}))
+     :on-click (fn [e]
+                 (let [id (js/$ (str "#" (-> e .-target .-id)))
+                       card-state (.data id "taken")
+                       write-ref (ref-for-path (str "jeopardy/" name))]
+                   (.set write-ref
+                         (clj->js {:taken (not card-state)}))))}))
 
 (defn card-contents [title amount]
   [:p.notification.is-warning.purple
@@ -44,18 +47,17 @@
   (let [name (re-frame/subscribe [:name])
         game-state (re-frame/subscribe [:game-state])]
     (reagent/create-class
-      {:component-did-mount
-       (fn [])
-       :reagent-render
+      {:reagent-render
        (fn []
          (when-not (empty? @game-state)
            (doseq [g @game-state]
-             (when (:taken g)
-               (.fadeTo (js/$ (str "#" (:card g)))
-                        "fast" 0.5))))
+             (let [id (js/$ (str "#" (:card g)))]
+               (.data id "taken" (:taken g))
+               (if (:taken g)
+                 (.fadeTo id "fast" 0.5)
+                 (.fadeTo id "fast" 1)))))
          [:section
           [:h1.title @name]
           [:div.columns
            (for [c (:categories db/default-db)]
-             ^{:key c}
-             [card c])]])})))
+             ^{:key c} [card c])]])})))
