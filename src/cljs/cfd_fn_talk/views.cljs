@@ -15,7 +15,7 @@
 
 (defn card-opts [title index]
   (let [name (str (name title) "-" index)
-        read-ref (ref-for-path (str "jeopardy/" name))
+        read-ref (ref-for-path (str "game-state/" name))
         _ (.on read-ref "value"
                (fn [snapshot]
                  (let [snapshot->clj (-> snapshot .val (js->clj :keywordize-keys true))]
@@ -27,7 +27,7 @@
      :on-click (fn [e]
                  (let [id (js/$ (str "#" (-> e .-target .-id)))
                        card-state (.data id "taken")
-                       write-ref (ref-for-path (str "jeopardy/" name))]
+                       write-ref (ref-for-path (str "game-state/" name))]
                    (.set write-ref
                          (clj->js {:taken (not card-state)}))))}))
 
@@ -63,7 +63,7 @@
              ^{:key c} [card c])]
           [:button.btn.btn-lg.btn-danger
            {:on-click (fn []
-                        (let [reset-ref (ref-for-path "jeopardy")]
+                        (let [reset-ref (ref-for-path "game-state")]
                           (.remove reset-ref (fn [e]
                                                (if e
                                                  (prn e)

@@ -9,5 +9,5 @@
                  :people-in-computing
                  :limits
                  :elixir/erlang
-                 :messages-better-than-classes}
+                 :messages-over-classes}
    :game-state []})
