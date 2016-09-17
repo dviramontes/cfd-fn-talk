@@ -54,7 +54,7 @@
              (let [id (js/$ (str "#" (:card g)))]
                (.data id "taken" (:taken g))
                (if (:taken g)
-                 (.fadeTo id "fast" 0.5)
+                 (.fadeTo id "fast" 0.25)
                  (.fadeTo id "fast" 1)))))
          [:section
           [:h1.title @name]
