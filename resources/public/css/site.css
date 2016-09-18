@@ -38,3 +38,9 @@ p {
     padding: 1em;
   }
 }
+.modal-body {
+  background-color: dimgray;
+}
+.modal .modal-card-title {
+  color: ghostwhite !important;
+}
