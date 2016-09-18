@@ -1,7 +1,7 @@
 (ns cfd-fn-talk.views
   (:require cljsjs.firebase
             cljsjs.jquery
-            [re-com.core :refer [modal-panel]]
+            [re-com.core :refer [modal-panel v-box]]
             [re-frame.core :as re-frame]
             [cfd-fn-talk.db :as db]
             [cfd-fn-talk.firebase :refer [firebase-db-ref ref-for-path]]
@@ -50,7 +50,6 @@
          {:on-click #(reset! show-modal? true)}
          (str most-recent)]))))
 
-
 (defn reset-game-state-btn [admin?]
   (fn []
     (when admin?
@@ -62,6 +61,17 @@
                                             (prn e)
                                             (prn "reset db success")))))}
         "reset board!"]])))
+
+(defn modal-component [most-recent-card]
+  (fn []
+    (let [name (-> @most-recent-card
+                   keys
+                   first)]
+      [v-box
+       :children [[:span
+                   [:p.modal-card-title name]
+                   [:br]
+                   "(or click on backdrop)"]]])))
 
 (defn main-panel []
   (let [admin? (.getItem js/localStorage "jeopardy-admin")
@@ -102,9 +112,12 @@
               [:p.title.main-title @name]
               (when @show-modal?
                 [modal-panel
+                 :backdrop-opacity 0.9
+                 :class "modal"
+                 :backdrop-color "rebeccapurple"
                  :wrap-nicely? false
                  :backdrop-on-click #(reset! show-modal? false)
-                 :child [:span "Please wait for 3 seconds" [:br] "(or click on backdrop)"]])]]]
+                 :child [modal-component most-recent-card]])]]]
 
            [:div.hero-body
             [:div.container
