@@ -3,15 +3,8 @@
             cljsjs.jquery
             [re-frame.core :as re-frame]
             [cfd-fn-talk.db :as db]
-            [cfd-fn-talk.config :refer [firebase-db-ref]]
+            [cfd-fn-talk.firebase :refer [firebase-db-ref ref-for-path]]
             [reagent.core :as reagent :refer [atom]]))
-
-(defn ref-for-path
-  "Returns a Firebase ref for the node at the given
-  path string relative to firebase-db-ref.
-  -- Tyler Perkins"
-  [rel-path]
-  (.child firebase-db-ref rel-path))
 
 (defn card-opts [title index]
   (let [name (str (name title) "-" index)
