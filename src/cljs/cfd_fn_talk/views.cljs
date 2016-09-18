@@ -65,13 +65,14 @@
           [:div.columns
            (for [c (:categories db/default-db)]
              ^{:key c} [card c])]
-          [:button.btn.btn-lg.btn-danger
-           {:on-click #(let [reset-ref (ref-for-path "game-state")]
-                        (.remove reset-ref (fn [e]
-                                             (if e
-                                               (prn e)
-                                               (prn "reset db success")))))}
+          (when (.getItem js/localStorage "admin")
+            [:button.btn.btn-lg.btn-danger
+             {:on-click #(let [reset-ref (ref-for-path "game-state")]
+                          (.remove reset-ref (fn [e]
+                                               (if e
+                                                 (prn e)
+                                                 (prn "reset db success")))))}
 
-           "reset board!"]
+             "reset board!"])
           [:h3.player-name
            (str "player name: " @player-name " | # of players: " @player-count)]])})))
