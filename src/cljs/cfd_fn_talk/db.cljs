@@ -10,4 +10,6 @@
                  :limits
                  :elixir/erlang
                  :messages-over-classes}
-   :game-state []})
+   :game-state []
+   :player-name nil
+   :player-count 0})

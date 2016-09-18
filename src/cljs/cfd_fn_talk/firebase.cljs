@@ -19,3 +19,9 @@
   -- Tyler Perkins"
   [rel-path]
   (.child firebase-db-ref rel-path))
+
+(defonce am-i-online?
+         (-> firebase-app
+             .database
+             .ref
+             (.child ".info/connected")))

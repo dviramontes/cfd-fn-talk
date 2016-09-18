@@ -37,10 +37,21 @@
             [card-contents title amount]) amounts)]))
 
 (defn main-panel []
-  (let [name (re-frame/subscribe [:name])
-        game-state (re-frame/subscribe [:game-state])]
+  (let [presence-ref (ref-for-path "presence")
+        _ (.on presence-ref "value"
+               (fn [snapshot]
+                 (let [snapshot->clj (-> snapshot .val (js->clj :keywordize-keys true))]
+                   (re-frame/dispatch [:set-firebase-player-count snapshot->clj]))))
+        name (re-frame/subscribe [:name])
+        game-state (re-frame/subscribe [:game-state])
+        player-name (re-frame/subscribe [:player-name])
+        player-count (re-frame/subscribe [:player-count])]
     (reagent/create-class
-      {:reagent-render
+      {:component-did-mount
+       (fn []
+         (when (nil? @player-name)
+           (re-frame/dispatch [:set-firebase-player-presence])))
+       :reagent-render
        (fn []
          (when-not (empty? @game-state)
            (doseq [g @game-state]
@@ -55,11 +66,12 @@
            (for [c (:categories db/default-db)]
              ^{:key c} [card c])]
           [:button.btn.btn-lg.btn-danger
-           {:on-click (fn []
-                        (let [reset-ref (ref-for-path "game-state")]
-                          (.remove reset-ref (fn [e]
-                                               (if e
-                                                 (prn e)
-                                                 (prn "reset db success"))))))}
+           {:on-click #(let [reset-ref (ref-for-path "game-state")]
+                        (.remove reset-ref (fn [e]
+                                             (if e
+                                               (prn e)
+                                               (prn "reset db success")))))}
 
-           "reset board"]])})))
+           "reset board!"]
+          [:h3.player-name
+           (str "player name: " @player-name " | # of players: " @player-count)]])})))

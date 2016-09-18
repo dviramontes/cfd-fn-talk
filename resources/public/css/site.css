@@ -19,6 +19,12 @@ p {
   font-size: 6em;
   text-align: center;
 }
+.player-name {
+  padding: 0.25em;
+  color: rebeccapurple;
+  font-size: 3em;
+  text-align: center;
+}
 .is-warning {
   color: rebeccapurple !important;
   border-bottom: 0.25em solid deepskyblue;

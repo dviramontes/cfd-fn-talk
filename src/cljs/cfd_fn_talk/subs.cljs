@@ -11,3 +11,13 @@
   :game-state
   (fn [db]
     (:game-state db)))
+
+(re-frame/reg-sub
+  :player-name
+  (fn [db]
+    (:player-name db)))
+
+(re-frame/reg-sub
+  :player-count
+  (fn [db]
+    (:player-count db)))
