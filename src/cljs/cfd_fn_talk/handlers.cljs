@@ -3,7 +3,8 @@
     cljsjs.chance
     [re-frame.core :as re-frame]
     [cfd-fn-talk.db :as db]
-    [cfd-fn-talk.firebase :refer [am-i-online? ref-for-path]]))
+    [cfd-fn-talk.firebase :refer [am-i-online? ref-for-path]]
+    [ajax.core :refer [GET]]))
 
 (re-frame/reg-event-db
   :initialize-db
@@ -49,3 +50,18 @@
   (re-frame/path [:most-recent-card])
   (fn [_ [_ most-recent-state]]
     most-recent-state))
+
+(re-frame/reg-event-db
+  :get-canvas-card-data
+  (fn [db [_ card-name]]
+    (let [format ".html"]
+      (GET (str (get (:card-pointers db) card-name) format)
+           {:handler         #(re-frame/dispatch [:process-fetch-card-data-success! %1])
+            :error-handler   #(prn %)}))
+    db))
+
+(re-frame/reg-event-db
+  :process-fetch-card-data-success!
+  (re-frame/path [:card-in-view])
+  (fn [_ [_ card-data]]
+    card-data))

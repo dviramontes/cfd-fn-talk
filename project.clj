@@ -10,7 +10,8 @@
                  [cljsjs/chance "0.7.3-0"]
                  [re-com "0.9.0"]
                  [com.andrewmcveigh/cljs-time "0.4.0"]
-                 [org.clojure/core.async "0.2.391"]]
+                 [org.clojure/core.async "0.2.391"]
+                 [cljs-ajax "0.5.8"]]
 
   :plugins [[lein-cljsbuild "1.1.3"]
             [lein-less "1.7.5"]]

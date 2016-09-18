@@ -66,12 +66,14 @@
   (fn []
     (let [name (-> @most-recent-card
                    keys
-                   first)]
+                   first)
+          _ (re-frame/dispatch [:get-canvas-card-data name])
+          card-data (re-frame/subscribe [:card-in-view])]
       [v-box
        :children [[:span
-                   [:p.modal-card-title name]
-                   [:br]
-                   "(or click on backdrop)"]]])))
+                   [:div.modal-card-title
+                    {"dangerouslySetInnerHTML"
+                     #js{:__html @card-data}}]]]])))
 
 (defn main-panel []
   (let [admin? (.getItem js/localStorage "jeopardy-admin")

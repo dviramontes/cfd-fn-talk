@@ -26,3 +26,8 @@
   :most-recent-card
   (fn [db]
     (:most-recent-card db)))
+
+(re-frame/reg-sub
+  :card-in-view
+  (fn [db]
+    (:card-in-view db)))
