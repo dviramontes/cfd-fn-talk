@@ -7,7 +7,8 @@
                  [cljsjs/firebase "3.2.1-0"]
                  [cljsjs/jquery "2.2.2-0"]
                  [cljsjs/fastclick "1.0.6-0"]
-                 [cljsjs/chance "0.7.3-0"]]
+                 [cljsjs/chance "0.7.3-0"]
+                 [re-com "0.9.0"]]
 
   :plugins [[lein-cljsbuild "1.1.3"]
             [lein-less "1.7.5"]]

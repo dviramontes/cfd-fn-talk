@@ -43,3 +43,9 @@
     (-> players-state
         keys
         count)))
+
+(re-frame/reg-event-db
+  :set-most-recent-card
+  (re-frame/path [:most-recent-card])
+  (fn [_ [_ most-recent-state]]
+    most-recent-state))

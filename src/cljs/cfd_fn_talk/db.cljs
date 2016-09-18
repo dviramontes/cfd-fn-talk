@@ -12,4 +12,5 @@
                  :messages-over-classes}
    :game-state []
    :player-name nil
-   :player-count 0})
+   :player-count 0
+   :most-recent-card nil})

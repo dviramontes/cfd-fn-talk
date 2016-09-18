@@ -1,9 +1,7 @@
 @purple: rebeccapurple;
 
-body { background-color: ghostwhite}
-
-section {
-  padding: 40px 20px;
+body, section.hero.is-large {
+  background-color: ghostwhite;
 }
 
 .column {
@@ -19,15 +17,17 @@ p {
   text-align: center;
 }
 
-.title {
-  padding:0.25em;
+.main-title {
+  font-size: 3em;
+}
+
+.title, .subtitle {
   color: @purple;
-  font-size: 6em;
   text-align: center;
 }
 
 .player-name {
-  padding:0.25em;
+  padding: 0.25em;
   color: @purple;
   font-size: 3em;
   text-align: center;
@@ -41,4 +41,10 @@ p {
 .purple {
   color: white !important;
   background: @purple !important;
+}
+
+@media screen and (min-width: 769px) {
+  .hero.is-large .hero-body {
+    padding: 1em;
+  }
 }

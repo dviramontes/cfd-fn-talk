@@ -21,3 +21,8 @@
   :player-count
   (fn [db]
     (:player-count db)))
+
+(re-frame/reg-sub
+  :most-recent-card
+  (fn [db]
+    (:most-recent-card db)))

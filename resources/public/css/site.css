@@ -1,8 +1,6 @@
-body {
-  background-color: #f8f8ff;
-}
-section {
-  padding: 40px 20px;
+body,
+section.hero.is-large {
+  background-color: ghostwhite;
 }
 .column:hover {
   cursor: hand;
@@ -13,10 +11,12 @@ p {
   padding-right: 0;
   text-align: center;
 }
-.title {
-  padding: 0.25em;
+.main-title {
+  font-size: 3em;
+}
+.title,
+.subtitle {
   color: rebeccapurple;
-  font-size: 6em;
   text-align: center;
 }
 .player-name {
@@ -32,4 +32,9 @@ p {
 .purple {
   color: white !important;
   background: rebeccapurple !important;
+}
+@media screen and (min-width: 769px) {
+  .hero.is-large .hero-body {
+    padding: 1em;
+  }
 }
