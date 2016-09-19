@@ -23,6 +23,7 @@
                                          :card name)]))))]
     {:id       name
      :on-click (fn [e]
+                 (reset! show-modal? true)
                  (let [id (js/$ (str "#" (-> e .-target .-id)))
                        card-state (.data id "taken")
                        write-ref (ref-for-path (str "game-state/" name))
