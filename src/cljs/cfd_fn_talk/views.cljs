@@ -70,7 +70,10 @@
           _ (re-frame/dispatch [:get-canvas-card-data name])
           card-data (re-frame/subscribe [:card-in-view])]
       [v-box
+       :justify :start
+       :align :start
        :children [[:span
+                   [:button.btn.btn-sm {:on-click #(reset! show-modal? false)} "X"]
                    [:div.modal-card-title
                     {"dangerouslySetInnerHTML"
                      #js{:__html @card-data}}]]]])))

@@ -41,6 +41,9 @@ p {
 .modal-body {
   background-color: dimgray;
 }
+.modal {
+  overflow: scroll;
+}
 .modal .modal-card-title {
   color: ghostwhite !important;
 }

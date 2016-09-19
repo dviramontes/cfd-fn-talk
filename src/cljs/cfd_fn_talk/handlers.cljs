@@ -54,11 +54,14 @@
 (re-frame/reg-event-db
   :get-canvas-card-data
   (fn [db [_ card-name]]
-    (let [format ".html"]
-      (GET (str (get (:card-pointers db) card-name) format)
-           {:handler         #(re-frame/dispatch [:process-fetch-card-data-success! %1])
-            :error-handler   #(prn %)}))
-    db))
+    (let [format ".html"
+          found (get (:card-pointers db) card-name)
+          name (str found format)]
+      (when found
+        (GET name
+             {:handler       #(re-frame/dispatch [:process-fetch-card-data-success! %1])
+              :error-handler #(prn %)}))
+      db)))
 
 (re-frame/reg-event-db
   :process-fetch-card-data-success!
