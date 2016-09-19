@@ -4,9 +4,9 @@
   {:name       "(λ jeopardy)"
    :categories #{:immutability
                  :lisp
-                 :multicore
+                 ;:multicore
                  :divergent-thinking
-                 :people-in-computing
+                 ;:people-in-computing
                  :limits
                  :elixir/erlang
                  :messages-over-classes}
@@ -34,5 +34,8 @@
                    :limits-200 "https://usecanvas.com/dviramontes/limits-200/5VamWjkYGCTZ2xJreU0lxq"
                    :limits-400 "https://usecanvas.com/dviramontes/limits-400/48bq0oeapj7YuAAehFyGBu"
                    :limits-800 "https://usecanvas.com/dviramontes/limits-800/758FHExSqi1J3wLCojKVHK"
-                   :limits-1000 ""}})
-
+                   :limits-1000 "https://usecanvas.com/dviramontes/limits-1000/3YohyPYU6p2TL9BxIB3pXx"
+                   :erlang-200 "https://usecanvas.com/dviramontes/erlang-200/3sj1qEJYFzYYBzoPgbRLHb"
+                   :erlang-400 ""
+                   :erlang-800 ""
+                   :erlang-1000 "https://usecanvas.com/dviramontes/fp-is-fun/1sHK8mxzOWH8CM4EAqKFWd"}})

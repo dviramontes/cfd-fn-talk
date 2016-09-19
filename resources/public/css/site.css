@@ -47,3 +47,11 @@ p {
 .modal .modal-card-title {
   color: ghostwhite !important;
 }
+.modal p a {
+  color: #fce473;
+  padding: 0.25em;
+  background-color: black;
+}
+.modal p a:hover {
+  color: whitesmoke;
+}

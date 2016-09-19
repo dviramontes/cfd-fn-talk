@@ -72,7 +72,8 @@
       [v-box
        :justify :start
        :align :start
-       :children [[:span
+       :padding "1em"
+       :children [[:div
                    [:button.btn.btn-sm {:on-click #(reset! show-modal? false)} "X"]
                    [:div.modal-card-title
                     {"dangerouslySetInnerHTML"
@@ -114,17 +115,17 @@
            [:div.hero-head
             [:header.nav
              [:div.container.has-text-centered
-              [:p.title.main-title @name]
-              (when @show-modal?
-                [modal-panel
-                 :backdrop-opacity 0.9
-                 :class "modal"
-                 :backdrop-color "rebeccapurple"
-                 :wrap-nicely? false
-                 :backdrop-on-click #(reset! show-modal? false)
-                 :child [modal-component most-recent-card]])]]]
-
+              [:p.title.main-title @name]]]]
            [:div.hero-body
+            [:div.container
+             (when @show-modal?
+               [modal-panel
+                :backdrop-opacity 0.9
+                :class "modal"
+                :backdrop-color "rebeccapurple"
+                :wrap-nicely? false
+                :backdrop-on-click #(reset! show-modal? false)
+                :child [modal-component most-recent-card]])]
             [:div.container
              [:p.title (str "player name: " @player-name)]]
             [:div.container.has-text-centered
@@ -144,6 +145,6 @@
                [:li
                 [:a "FP talk"]]
                [:li
-                [:a "david viramontes"]]
+                [:a {:href "#"} "CFD"]]
                [:li
-                [:a {:href "http://www.codefordenver.org/"} "CFD"]]]]]]]])})))
+                [:a "david viramontes"]]]]]]]])})))
