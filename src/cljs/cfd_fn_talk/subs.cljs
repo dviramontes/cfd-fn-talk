@@ -31,3 +31,8 @@
   :card-in-view
   (fn [db]
     (:card-in-view db)))
+
+(re-frame/reg-sub
+  :card-in-view-locked
+  (fn [db]
+    (:card-in-view-locked db)))

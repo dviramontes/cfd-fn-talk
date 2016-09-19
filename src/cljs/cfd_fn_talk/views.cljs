@@ -9,6 +9,8 @@
 
 (def show-modal? (atom false))
 
+(def card-data-cache (atom nil))
+
 (defn card-opts [title index]
   (let [name (str (name title) "-" index)
         read-ref (ref-for-path (str "game-state/" name))
@@ -42,13 +44,12 @@
             ^{:key (gensym "card-")}
             [card-contents title amount]) amounts)]))
 
-(defn most-recent-card-btn [most-recent-card admin?]
+(defn most-recent-card-btn [most-recent-card]
   (fn []
     (let [most-recent (or @most-recent-card "{:card \"name\" :taken false}")]
-      (when admin?
-        [:button.button.is-primary
-         {:on-click #(reset! show-modal? true)}
-         (str most-recent)]))))
+      [:button.button.is-primary
+       {:on-click #(reset! show-modal? true)}
+       (str most-recent)])))
 
 (defn reset-game-state-btn [admin?]
   (fn []
@@ -68,18 +69,39 @@
                    keys
                    first)
           _ (re-frame/dispatch [:get-canvas-card-data name])
-          card-data (re-frame/subscribe [:card-in-view])]
+          card-data (re-frame/subscribe [:card-in-view])
+          card-locked (re-frame/subscribe [:card-in-view-locked])]
       [v-box
        :justify :center
        :align :center
        :padding "2em"
        :children [[:div
                    [:button.button.is-primary.is-outlined
-                    {:on-click #(reset! show-modal? false)}
+                    {:on-click #(do
+                                 (reset! show-modal? false)
+                                 (re-frame/dispatch [:set-card-in-view-locked false])
+                                 (re-frame/dispatch [:set-card-in-view nil]))}
                     [:i.fa.fa-times]]
-                   [:div.modal-card-title
-                    {"dangerouslySetInnerHTML"
-                     #js{:__html (or @card-data "<h1>404</h1>")}}]]]])))
+                   " "
+                   [:button {:on-click #(re-frame/dispatch [:set-card-in-view-locked (not @card-locked)])
+                             :class (if @card-locked
+                                      "button is-primary"
+                                      "button is-danger is-outlined")}
+                    [:i.fa.fa-lock]]
+                   (if @card-locked
+                     (do
+                       ;; use cache
+                       [:div.modal-card-title
+                          {"dangerouslySetInnerHTML"
+                           #js{:__html (or @card-data-cache "<h1>404</h1>")}}])
+                     (do
+                       ;; set cache
+                       (reset! card-data-cache @card-data)
+                       [:div.modal-card-title
+                        {"dangerouslySetInnerHTML"
+                         #js{:__html (or @card-data "<h1>404</h1>")}}]))]]])))
+
+
 
 (defn main-panel []
   (let [admin? (.getItem js/localStorage "jeopardy-admin")
@@ -125,7 +147,10 @@
                :class "modal"
                :backdrop-color "rebeccapurple"
                :wrap-nicely? false
-               :backdrop-on-click #(reset! show-modal? false)
+               :backdrop-on-click #(do
+                                    (reset! show-modal? false)
+                                    (re-frame/dispatch [:set-card-in-view-locked false])
+                                    (re-frame/dispatch [:set-card-in-view nil]))
                :child [modal-component most-recent-card]])]
            [:div.container
             [:p.title (str "player name: " @player-name)]]

@@ -69,3 +69,10 @@
   (re-frame/path [:card-in-view])
   (fn [_ [_ card-data]]
     card-data))
+
+(re-frame/reg-event-db
+  :set-card-in-view-locked
+  (re-frame/path [:card-in-view-locked])
+  (fn [_ [_ state]]
+    (prn state)
+    state))
