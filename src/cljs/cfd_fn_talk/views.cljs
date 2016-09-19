@@ -85,8 +85,8 @@
                    " "
                    [:button {:on-click #(re-frame/dispatch [:set-card-in-view-locked (not @card-locked)])
                              :class (if @card-locked
-                                      "button is-primary"
-                                      "button is-danger is-outlined")}
+                                      "button is-danger is-outlined"
+                                      "button is-primary")}
                     [:i.fa.fa-lock]]
                    (if @card-locked
                      (do

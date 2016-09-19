@@ -37,6 +37,6 @@
                    :limits-800 "https://usecanvas.com/dviramontes/limits-800/758FHExSqi1J3wLCojKVHK"
                    :limits-1000 "https://usecanvas.com/dviramontes/limits-1000/3YohyPYU6p2TL9BxIB3pXx"
                    :erlang-200 "https://usecanvas.com/dviramontes/erlang-200/3sj1qEJYFzYYBzoPgbRLHb"
-                   :erlang-400 nil
+                   :erlang-400 "https://usecanvas.com/dviramontes/erlang-400/1vcCNNuQjV9SKy2PuKaKVJ"
                    :erlang-800 nil
                    :erlang-1000 "https://usecanvas.com/dviramontes/fp-is-fun/1sHK8mxzOWH8CM4EAqKFWd"}})

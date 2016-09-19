@@ -74,5 +74,4 @@
   :set-card-in-view-locked
   (re-frame/path [:card-in-view-locked])
   (fn [_ [_ state]]
-    (prn state)
     state))
