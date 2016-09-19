@@ -40,9 +40,9 @@
   (let [amounts [200 400 800 1000]]
     [:div.column
      [:p.notification.is-warning title]
-     (map (fn [amount]
-            ^{:key (gensym "card-")}
-            [card-contents title amount]) amounts)]))
+     (for [amount amounts]
+       ^{:key (gensym "card-")}
+       [card-contents title amount])]))
 
 (defn most-recent-card-btn [most-recent-card]
   (fn []
@@ -56,11 +56,7 @@
     (when admin?
       [:section
        [:button.button.is-danger
-        {:on-click #(let [reset-ref (ref-for-path "game-state")]
-                     (.remove reset-ref (fn [e]
-                                          (if e
-                                            (prn e)
-                                            (prn "reset db success")))))}
+        {:on-click #(re-frame/dispatch [:reset-game-state])}
         "reset board!"]])))
 
 (defn modal-component [most-recent-card]
@@ -84,9 +80,9 @@
                     [:i.fa.fa-times]]
                    " "
                    [:button {:on-click #(re-frame/dispatch [:set-card-in-view-locked (not @card-locked)])
-                             :class (if @card-locked
-                                      "button is-danger is-outlined"
-                                      "button is-primary")}
+                             :class    (if @card-locked
+                                         "button is-danger is-outlined"
+                                         "button is-primary")}
                     [:i.fa.fa-lock]]
                    (if @card-locked
                      (do
@@ -100,8 +96,6 @@
                        [:div.modal-card-title
                         {"dangerouslySetInnerHTML"
                          #js{:__html (or @card-data "<h1>404</h1>")}}]))]]])))
-
-
 
 (defn main-panel []
   (let [admin? (.getItem js/localStorage "jeopardy-admin")
@@ -127,6 +121,7 @@
            (re-frame/dispatch [:set-firebase-player-presence])))
        :reagent-render
        (fn []
+         (prn "re-rendering")
          (when-not (empty? @game-state)
            (doseq [g @game-state]
              (let [id (js/$ (str "#" (:card g)))]
@@ -153,7 +148,7 @@
                                     (re-frame/dispatch [:set-card-in-view nil]))
                :child [modal-component most-recent-card]])]
            [:div.container
-            [:p.title (str "player name: " @player-name)]]
+            [:p.title (str "player id: " @player-name)]]
            [:div.container.has-text-centered
             [:p.subtitle (str "# of players: " @player-count)]
             [:div.columns
@@ -173,4 +168,3 @@
                [:a {:href "#"} "CFD"]]
               [:li
                [:a "david viramontes"]]]]]]])})))
-

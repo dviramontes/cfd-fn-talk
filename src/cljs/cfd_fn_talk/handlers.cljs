@@ -75,3 +75,14 @@
   (re-frame/path [:card-in-view-locked])
   (fn [_ [_ state]]
     state))
+
+(re-frame/reg-event-db
+  :reset-game-state
+  (re-frame/path [:game-state])
+  (fn [_ [_ _]]
+    (let [reset-ref (ref-for-path "game-state")]
+      (.remove reset-ref (fn [e]
+                           (if e
+                             (prn e)
+                             (prn "reset db success")))))
+    []))
