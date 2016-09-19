@@ -46,7 +46,7 @@
   (fn []
     (let [most-recent (or @most-recent-card "{:card \"name\" :taken false}")]
       (when admin?
-        [:button.btn.btn-lg.btn-info
+        [:button.button.is-primary
          {:on-click #(reset! show-modal? true)}
          (str most-recent)]))))
 
@@ -54,7 +54,7 @@
   (fn []
     (when admin?
       [:section
-       [:button.btn.btn-lg.btn-danger
+       [:button.button.is-danger
         {:on-click #(let [reset-ref (ref-for-path "game-state")]
                      (.remove reset-ref (fn [e]
                                           (if e
@@ -70,14 +70,16 @@
           _ (re-frame/dispatch [:get-canvas-card-data name])
           card-data (re-frame/subscribe [:card-in-view])]
       [v-box
-       :justify :start
-       :align :start
-       :padding "1em"
+       :justify :center
+       :align :center
+       :padding "2em"
        :children [[:div
-                   [:button.btn.btn-sm {:on-click #(reset! show-modal? false)} "X"]
+                   [:button.button.is-primary.is-outlined
+                    {:on-click #(reset! show-modal? false)}
+                    [:i.fa.fa-times]]
                    [:div.modal-card-title
                     {"dangerouslySetInnerHTML"
-                     #js{:__html @card-data}}]]]])))
+                     #js{:__html (or @card-data "<h1>404</h1>")}}]]]])))
 
 (defn main-panel []
   (let [admin? (.getItem js/localStorage "jeopardy-admin")
@@ -110,41 +112,40 @@
                (if (:taken g)
                  (.fadeTo id "fast" 0.25)
                  (.fadeTo id "fast" 1)))))
-         [:div
-          [:section.hero.is-large
-           [:div.hero-head
-            [:header.nav
-             [:div.container.has-text-centered
-              [:p.title.main-title @name]]]]
-           [:div.hero-body
-            [:div.container
-             (when @show-modal?
-               [modal-panel
-                :backdrop-opacity 0.9
-                :class "modal"
-                :backdrop-color "rebeccapurple"
-                :wrap-nicely? false
-                :backdrop-on-click #(reset! show-modal? false)
-                :child [modal-component most-recent-card]])]
-            [:div.container
-             [:p.title (str "player name: " @player-name)]]
+         [:section.hero.is-large
+          [:div.hero-head
+           [:header.nav
             [:div.container.has-text-centered
-             [:p.subtitle (str "# of players: " @player-count)]
-             [:div.columns
-              (for [c (:categories db/default-db)]
-                ^{:key c} [card c])]]]
+             [:p.title.main-title @name]]]]
+          [:div.hero-body
+           [:div.container
+            (when @show-modal?
+              [modal-panel
+               :backdrop-opacity 0.9
+               :class "modal"
+               :backdrop-color "rebeccapurple"
+               :wrap-nicely? false
+               :backdrop-on-click #(reset! show-modal? false)
+               :child [modal-component most-recent-card]])]
+           [:div.container
+            [:p.title (str "player name: " @player-name)]]
+           [:div.container.has-text-centered
+            [:p.subtitle (str "# of players: " @player-count)]
+            [:div.columns
+             (for [c (:categories db/default-db)]
+               ^{:key c} [card c])]]]
+          [:div.hero-foot
+           [:nav.tabs.is-boxed.is-fullwidth
+            [:di.container
+             [:ul
+              [:li.is-active
+               [reset-game-state-btn admin?]]
+              [:li
+               [most-recent-card-btn most-recent-card admin?]]
+              [:li
+               [:a "FP talk"]]
+              [:li
+               [:a {:href "#"} "CFD"]]
+              [:li
+               [:a "david viramontes"]]]]]]])})))
 
-           [:div.hero-foot
-            [:nav.tabs.is-boxed.is-fullwidth
-             [:di.container
-              [:ul
-               [:li.is-active
-                [reset-game-state-btn admin?]]
-               [:li
-                [most-recent-card-btn most-recent-card admin?]]
-               [:li
-                [:a "FP talk"]]
-               [:li
-                [:a {:href "#"} "CFD"]]
-               [:li
-                [:a "david viramontes"]]]]]]]])})))

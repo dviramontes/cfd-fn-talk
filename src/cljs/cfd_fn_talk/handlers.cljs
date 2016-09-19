@@ -57,14 +57,15 @@
     (let [format ".html"
           found (get (:card-pointers db) card-name)
           name (str found format)]
-      (when found
+      (if found
         (GET name
-             {:handler       #(re-frame/dispatch [:process-fetch-card-data-success! %1])
-              :error-handler #(prn %)}))
+             {:handler       #(re-frame/dispatch [:set-card-in-view %1])
+              :error-handler #(re-frame/dispatch [:set-card-in-view nil])})
+        (re-frame/dispatch [:set-card-in-view nil]))
       db)))
 
 (re-frame/reg-event-db
-  :process-fetch-card-data-success!
+  :set-card-in-view
   (re-frame/path [:card-in-view])
   (fn [_ [_ card-data]]
     card-data))
