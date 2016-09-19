@@ -15,7 +15,7 @@
   :update-game-state
   (re-frame/path [:game-state])
   (fn [game [_ state]]
-    (if (= (count game) 32)
+    (if (= (count game) 24)
       (let [index (.indexOf (map :card game) (:card state))]
         (assoc game index state))
       (conj game state))))
