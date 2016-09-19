@@ -121,7 +121,6 @@
            (re-frame/dispatch [:set-firebase-player-presence])))
        :reagent-render
        (fn []
-         (prn "re-rendering")
          (when-not (empty? @game-state)
            (doseq [g @game-state]
              (let [id (js/$ (str "#" (:card g)))]
