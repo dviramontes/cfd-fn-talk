@@ -25,13 +25,13 @@
      :on-click (fn [e]
                  (reset! show-modal? true)
                  (let [id (js/$ (str "#" (-> e .-target .-id)))
-                       card-state (.data id "taken")
+                       taken (.data id "taken")
                        write-ref (ref-for-path (str "game-state/" name))
                        most-recent-write-ref (ref-for-path "game-state/most-recent")]
                    (.set most-recent-write-ref
-                         (clj->js {name (not card-state)}))
+                         (clj->js {name (not taken)}))
                    (.set write-ref
-                         (clj->js {:taken (not card-state)}))))}))
+                         (clj->js {:taken (not taken)}))))}))
 
 (defn card-contents [title amount]
   [:p.notification.is-warning.purple
@@ -159,7 +159,7 @@
             [:di.container
              [:ul
               [:li.is-active
-               [reset-game-state-btn admin?]]
+               [reset-game-state-btn true]]
               [:li
                [most-recent-card-btn most-recent-card admin?]]
               [:li
